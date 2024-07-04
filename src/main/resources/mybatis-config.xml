@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="causeDto" type="com.example.python.dto.CauseDto"/>
+        <typeAlias alias="kindDto" type="com.example.python.dto.KindDto"/>
+        <typeAlias alias="chemicalDto" type="com.example.python.dto.ChemicalDto"/>
+        <typeAlias alias="damageDto" type="com.example.python.dto.DamageDto"/>
+        <typeAlias alias="kindDetailDto" type="com.example.python.dto.KindDetailDto"/>
+        <typeAlias alias="yearDto" type="com.example.python.dto.YearDto"/>
+        <typeAlias alias="causeDetailDto" type="com.example.python.dto.CauseDetailDto"/>
+        <typeAlias alias="dataDto" type="com.example.python.dto.DataDto"/>
+    </typeAliases>
+</configuration>

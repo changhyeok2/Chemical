@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.python.mapper.KindMapper">
+
+    <select id="selectKind" parameterType="String" resultType="kindDetailDto">
+        SELECT 유형명,원인명,sum(사망) AS '사망',SUM(부상) AS '부상',SUM(총사상자) AS '총사상자'
+        FROM kind k JOIN chemical c
+        ON k.`유형아이디` = c.`유형아이디` JOIN cause ca
+        ON c.`원인아이디` = ca.`원인아이디` JOIN damage d
+        ON c.`사고번호` = d.`사고번호`
+        WHERE 유형명 = #{유형명}
+        GROUP BY 유형명,원인명;
+    </select>
+
+    <select id="selectYear" parameterType="String" resultType="yearDto">
+        SELECT 유형명,year(사고일자) AS '사고일자',SUM(총사상자) AS '총사상자'
+        FROM kind k JOIN chemical c
+        ON k.`유형아이디` = c.`유형아이디` JOIN cause ca
+        ON c.`원인아이디` = ca.`원인아이디` JOIN damage d
+        ON c.`사고번호` = d.`사고번호`
+        WHERE 유형명 = #{유형명}
+        GROUP BY 유형명,YEAR(사고일자);
+    </select>
+</mapper>

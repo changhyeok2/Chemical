@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.python.mapper.DamageMapper">
+<!--    <insert id="insertDamage" parameterType="damageDto">-->
+<!--        INSERT INTO damage (accident_number, dead, wounded, casualty)-->
+<!--        VALUES (#{accidentNumber}, #{dead}, #{wounded}, #{casualty})-->
+<!--    </insert>-->
+
+    <select id="selectDamage" resultType="damageDto">
+        SELECT 사고번호,사망,부상,총사상자
+        FROM damage
+    </select>
+</mapper>

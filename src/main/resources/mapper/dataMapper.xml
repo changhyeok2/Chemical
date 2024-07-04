@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.python.mapper.DataMapper">
+
+    <resultMap id="dataResultMap" type="dataDto">
+        <id property="사고번호" column="사고번호" />
+        <result property="유형아이디" column="유형아이디" />
+        <result property="원인아이디" column="원인아이디" />
+        <result property="사고일자" column="사고일자" />
+        <result property="사고내용" column="사고내용" />
+        <result property="사망" column="사망"/>
+        <result property="부상" column="부상"/>
+        <association property="kind" javaType="kindDto">
+            <id property="유형아이디" column="유형아이디" />
+            <result property="유형명" column="유형명" />
+        </association>
+        <association property="cause" javaType="causeDto">
+            <id property="원인아이디" column="원인아이디" />
+            <result property="원인명" column="원인명" />
+        </association>
+
+    </resultMap>
+
+    <select id="findAll" resultMap="dataResultMap">
+        SELECT c.*, k.유형명, cs.원인명, d.사망, d.부상, c.사고내용
+        FROM chemical c
+        JOIN kind k ON c.유형아이디 = k.유형아이디
+        JOIN cause cs ON c.원인아이디 = cs.원인아이디
+        JOIN damage d ON c.사고번호 = d.사고번호
+    </select>
+
+    <select id="findFilter" parameterType="map" resultMap="dataResultMap">
+        SELECT c.*, k.유형명, cs.원인명, d.사망, d.부상
+        FROM chemical c
+        JOIN kind k ON c.유형아이디 = k.유형아이디
+        JOIN cause cs ON c.원인아이디 = cs.원인아이디
+        JOIN damage d ON c.사고번호 = d.사고번호
+        <where>
+            <if test="year != null and year != ''">
+                AND YEAR(c.사고일자) = #{year}
+            </if>
+            <if test="kind != null and kind != ''">
+                AND k.유형명 = #{kind}
+            </if>
+            <if test="cause != null and cause != ''">
+                AND cs.원인명 = #{cause}
+            </if>
+        </where>
+    </select>
+</mapper>
